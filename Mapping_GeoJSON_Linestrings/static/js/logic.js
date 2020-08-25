@@ -104,18 +104,24 @@ let map = L.map('mapid', {
 L.control.layers(baseMaps).addTo(map);
 
 // Accessing the airport GeoJSON URL
-let airportData = "https://raw.githubusercontent.com/enrique-bustamante/Mapping_Earthquakes/master/majorAirports.json";
+let torontoData = "https://raw.githubusercontent.com/enrique-bustamante/Mapping_Earthquakes/master/torontoRoutes.json";
+
+
+// Create a style for the lines.
+let myStyle = {
+	color: "#ffffa1",
+	weight: 2
+}
 
 // Grabbing our GeoJSON data.
-d3.json(airportData).then(function(data) {
+d3.json(torontoData).then(function(data) {
   console.log(data);
 // Creating a GeoJSON layer with the retrieved data.
-L.geoJson(data, {
+L.geoJSON(data, {
+  style: myStyle,
   // We turn each feature into a marker on the map.
-  pointToLayer: function(feature, latlng) {
-    console.log(feature);
-    return L.marker(latlng)
-    .bindPopup("<h2>Airport code: " + feature.properties.faa + "</h2><hr><h3>Airport Name: " + feature.properties.name + "</h3>");
+  forEachFeature: function(data, layer) {
+    layer.bindPopup("<h2>Airport code: " + feature.properties.faa + "</h2><hr><h3>Airport Name: " + feature.properties.name + "</h3>");
   }
   }).addTo(map);
 });

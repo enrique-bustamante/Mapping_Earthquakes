@@ -104,13 +104,14 @@ let map = L.map('mapid', {
 L.control.layers(baseMaps).addTo(map);
 
 // Accessing the airport GeoJSON URL
-let airportData = "https://raw.githubusercontent.com/enrique-bustamante/Mapping_Earthquakes/master/majorAirports.json";
+//let airportData = "https://raw.githubusercontent.com/enrique-bustamante/Mapping_Earthquakes/master/majorAirports.json";
+let torontoHood = "https://raw.githubusercontent.com/enrique-bustamante/Mapping_Earthquakes/master/torontoNeighborhoods.json"
 
 // Grabbing our GeoJSON data.
 d3.json(airportData).then(function(data) {
   console.log(data);
 // Creating a GeoJSON layer with the retrieved data.
-L.geoJson(data, {
+L.geoJSON(data, {
   // We turn each feature into a marker on the map.
   pointToLayer: function(feature, latlng) {
     console.log(feature);
