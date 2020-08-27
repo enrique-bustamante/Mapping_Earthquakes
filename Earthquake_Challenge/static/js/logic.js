@@ -42,12 +42,15 @@ let baseMaps = {
   "Outdoors": outdoors
 };
 
-let earthquakes = new L.layerGroup()
+let earthquakes = new L.layerGroup();
+// Define object that contains tectonic plates in overlay
+let plates = new L.layerGroup();
 
 // We define an object that contains the overlays.
 // This overlay will be visible all the time.
 let overlays = {
-    Earthquakes: earthquakes
+    Earthquakes: earthquakes,
+    Tectonic_Plates: plates
   };
 
 // Create the map object with a center and zoom level and set street as default map.
