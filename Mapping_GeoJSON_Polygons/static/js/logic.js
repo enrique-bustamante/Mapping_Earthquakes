@@ -123,7 +123,7 @@ d3.json(torontoHoods).then(function(data) {
     // We turn each feature into a marker on the map.
     forEachFeature: function(feature, layer) {
       console.log(feature),
-      layer.bindPopup("<h2>Neighborhood: " + feature.properties.AREA_NAME + "</h2>");
+      layer.bindPopup("<h2>Neighborhood: " + feature[0].properties.AREA_NAME + "</h2>");
     }
     }).addTo(map);
   });
