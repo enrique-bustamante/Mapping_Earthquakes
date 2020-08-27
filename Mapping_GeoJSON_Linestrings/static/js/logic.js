@@ -117,7 +117,7 @@ let myStyle = {
 d3.json(torontoData).then(function(data) {
   console.log(data);
 // Creating a GeoJSON layer with the retrieved data.
-L.geoJSON(data, {
+L.geoJson(data, {
   style: myStyle,
   // We turn each feature into a marker on the map.
   forEachFeature: function(data, layer) {
