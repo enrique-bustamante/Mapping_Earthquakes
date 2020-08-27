@@ -98,25 +98,32 @@ let baseMaps = {
 let map = L.map('mapid', {
 	center: [43.7, -79.3],
 	zoom: 11,
-	layers: [satelliteStreets]
+	layers: [streets]
 })
 // Pass our map layers into our layers control and add the layers control to the map.
 L.control.layers(baseMaps).addTo(map);
 
 // Accessing the airport GeoJSON URL
 //let airportData = "https://raw.githubusercontent.com/enrique-bustamante/Mapping_Earthquakes/master/majorAirports.json";
-let torontoHood = "https://raw.githubusercontent.com/enrique-bustamante/Mapping_Earthquakes/master/torontoNeighborhoods.json"
+let torontoHoods = "https://raw.githubusercontent.com/enrique-bustamante/Mapping_Earthquakes/master/torontoNeighborhoods.json"
+
+// Create a style for the lines.
+let myStyle = {
+  color: 'blue',
+	fillColor: "#ffffa1",
+	weight: 1
+}
 
 // Grabbing our GeoJSON data.
-d3.json(airportData).then(function(data) {
+d3.json(torontoHoods).then(function(data) {
   console.log(data);
-// Creating a GeoJSON layer with the retrieved data.
-L.geoJSON(data, {
-  // We turn each feature into a marker on the map.
-  pointToLayer: function(feature, latlng) {
-    console.log(feature);
-    return L.marker(latlng)
-    .bindPopup("<h2>Airport code: " + feature.properties.faa + "</h2><hr><h3>Airport Name: " + feature.properties.name + "</h3>");
-  }
-  }).addTo(map);
-});
+  // Creating a GeoJSON layer with the retrieved data.
+  L.geoJson(data, {
+    style: myStyle,
+    // We turn each feature into a marker on the map.
+    forEachFeature: function(feature, layer) {
+      console.log(feature),
+      layer.bindPopup("<h2>Neighborhood: " + feature.properties.AREA_NAME + "</h2>");
+    }
+    }).addTo(map);
+  });
