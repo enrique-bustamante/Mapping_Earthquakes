@@ -45,6 +45,16 @@ let pirate = L.tileLayer('https://api.mapbox.com/styles/v1/khalnogo/cked4ug8q0ez
   accessToken: API_KEY
 });
 
+let woodcut = L.tileLayer('https://api.mapbox.com/styles/v1/khalnogo/cked9wnqa1bh519nzjznu3ew2/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+  maxZoom: 18,
+  accessToken: API_KEY
+});
+
+let decimal = L.tileLayer('https://api.mapbox.com/styles/v1/khalnogo/ckedbh4y30ioe18oes8xxbmq8/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+  maxZoom: 18,
+  accessToken: API_KEY
+});
+
 // Create a base layer that holds both maps.
 let baseMaps = {
   "Streets": streets,
@@ -53,7 +63,9 @@ let baseMaps = {
   "Dark": dark,
   "Light": light,
   "Outdoors": outdoors,
-  "Pirate": pirate
+  "Pirate": pirate,
+  "Woodcut": woodcut,
+  "Tron": decimal
 };
 
 let earthquakes = new L.layerGroup();
