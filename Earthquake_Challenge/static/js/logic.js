@@ -12,6 +12,13 @@ attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap
   accessToken: API_KEY
 });
 
+// We create the satellite street view tile layer that will be an option for our map.
+let satellite = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/satellite-v9/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
+  maxZoom: 18,
+  accessToken: API_KEY
+});
+
 // We create a dark view tile layer as an option for the map
 let dark = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/dark-v10/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data © <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery (c) <a href="https://www.mapbox.com/">Mapbox</a>',
@@ -33,21 +40,43 @@ let outdoors = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/outdoors-v11
       accessToken: API_KEY
     });
 
+let pirate = L.tileLayer('https://api.mapbox.com/styles/v1/khalnogo/cked4ug8q0ez119nrmdgvk6a4/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+  maxZoom: 18,
+  accessToken: API_KEY
+});
+
+let woodcut = L.tileLayer('https://api.mapbox.com/styles/v1/khalnogo/cked9wnqa1bh519nzjznu3ew2/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+  maxZoom: 18,
+  accessToken: API_KEY
+});
+
+let decimal = L.tileLayer('https://api.mapbox.com/styles/v1/khalnogo/ckedbh4y30ioe18oes8xxbmq8/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+  maxZoom: 18,
+  accessToken: API_KEY
+});
+
 // Create a base layer that holds both maps.
 let baseMaps = {
   "Streets": streets,
   "Satellite Streets": satelliteStreets,
+  "Satellite": satellite,
   "Dark": dark,
   "Light": light,
-  "Outdoors": outdoors
+  "Outdoors": outdoors,
+  "Pirate": pirate,
+  "Woodcut": woodcut,
+  "Tron": decimal
 };
 
-let earthquakes = new L.layerGroup()
+let earthquakes = new L.layerGroup();
+// Define object that contains tectonic plates in overlay
+let plates = new L.layerGroup();
 
 // We define an object that contains the overlays.
 // This overlay will be visible all the time.
 let overlays = {
-    Earthquakes: earthquakes
+    Earthquakes: earthquakes,
+    "Tectonic Plates": plates
   };
 
 // Create the map object with a center and zoom level and set street as default map.
@@ -147,4 +176,14 @@ d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geoj
         return div;
     };
     legend.addTo(map);
+});
+
+d3.json("https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json").then(function(data) {
+  L.geoJson(data, {
+    style: {
+      color: "#ff9503",
+      weight: 2
+    }
+  }).addTo(plates),
+  plates.addTo(map);
 });
