@@ -3,7 +3,7 @@
 
 ### Purpose
 
-The purpose of this exercise is to build map that tracks not only the
+The purpose of this project wass to build a map that tracks not only the
 earthquakes for the past 7 days, but the magnitude as well. The map also includes popup info for each incident.
 
 
