@@ -3,8 +3,8 @@
 
 ### Purpose
 
-The purpose of this project wass to build a map that tracks not only the
-earthquakes for the past 7 days, but the magnitude as well. The map also includes popup info for each incident.
+The purpose of this project was to build a map that tracks not only the
+earthquakes for the past 7 days, but the magnitude as well. The map also includes popup information for each incident.
 
 
 ### Technical Methods
